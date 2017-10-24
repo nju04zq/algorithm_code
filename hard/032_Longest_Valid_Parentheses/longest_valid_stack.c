@@ -31,9 +31,11 @@ longest_pairs (ustack_t *stack, char *s)
     size = get_stack_size(stack);
     for (; size > 0; size--) {
         j = (int)(unsigned long)pop(stack);
+        printf("i %d, j %d\n", i, j);
         max_pairs = MAX(max_pairs, (i-j)/2);
         i = j;
     }
+    printf("i %d, cur %d\n", i, cur_start);
     max_pairs = MAX(max_pairs, (i-cur_start)/2);
     return max_pairs;
 }
@@ -170,6 +172,8 @@ int main (void)
 {
     int i, rc;
 
+    longestValidParentheses("))(())(()(((");
+    return 0;
     test_longest_pairs("(()");
     test_longest_pairs(")()())");
     for (i = 0; i < TEST_CASE_CNT; i++) {

@@ -1,0 +1,17 @@
+003_Longest_Substring_Without_Repeating_Characters
+009_Palindrome_Number
+234_Palindrome_Linked_List
+014_Longest_Common_Prefix // break inner loop
+025_Reverse_Nodes_in_k-Group // reverse, store next and update cur = next
+033_Search_in_Rotated_Sorted_Array // binary search condition
+039_Combination_Sum, 040_Combination_Sum_II // remove duplicates
+022_Generate_Parentheses // the power of recursion recursion
+047_Permutations_II // remove unique
+054_Spiral_Matrix // all kinds of conditions
+058_Length_of_Last_Word // all cases
+063_Unique_Paths_II // dp conditions
+083_Remove_Duplicates_from_Sorted_List // consider edge case
+091_Decode_Ways // various corner cases
+093_Restore_IP_Addresses // various corner cases
+098_Validate_Binary_Search_Tree // what's a BST
+112_Path_Sum // think about all cases, 4 times to get bug free

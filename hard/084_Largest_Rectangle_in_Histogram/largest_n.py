@@ -28,6 +28,9 @@ def test_largest(a):
 
 solution = Solution()
 
+a = [2,1,5,6,2,3, 1, 1, 1, 1]
+test_largest(a)
+
 a = []
 test_largest(a)
 
