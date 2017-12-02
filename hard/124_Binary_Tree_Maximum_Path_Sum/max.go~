@@ -1,0 +1,84 @@
+package main
+
+import "fmt"
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+
+func maxPathSumInternal(root *TreeNode) (int, int) {
+	if root == nil {
+		return 0
+	} else if root.Left == nil && root.Right == nil {
+		return root.Val, root.Val
+	}
+	var leftMax, leftRootMax, rightMax, rightRootMax int
+	maxSum, rootMax := math.MinInt, math.MinInt
+	if root.Left != nil {
+		leftMax, leftRootMax = maxPathSumInternal(root.Left)
+		maxSum = max(maxSum, leftMax)
+	}
+	if root.Right != nil {
+		rightMax, rightRootMax = maxPathSumInternal(root.Right)
+		maxSum = max(maxSum, rightMax)
+	}
+	if root.Left != nil && root.Rigth != nil {
+		temp := root.Val
+		if leftRootMax > 0 {
+			temp += leftRootMax
+		}
+		if rightRootMax > 0 {
+			temp += rightRootMax
+		}
+		maxSum = max(maxSum, temp)
+		temp = max(leftRootMax, rightRootMax)
+		if temp > 0 {
+			rootMax = root + temp
+		} else {
+			rootMax = root
+		}
+	} else if root.Left != nil {
+		temp := root.Val
+		if leftRootMax > 0 {
+			temp += leftRootMax
+		}
+		maxSum = max(maxSum, temp)
+		rootMax = temp
+	} else {
+		temp := root.Val
+		if rightRootMax > 0 {
+			temp += rightRootMax
+		}
+		maxSum = max(maxSum, temp)
+		rootMax = temp
+	}
+	return maxSum, rootMax
+}
+
+func maxPathSum(root *TreeNode) int {
+	maxSum, _ := maxPathSumInternal(root)
+	return maxSum
+}
+
+func main() {
+	fmt.Println("vim-go")
+}

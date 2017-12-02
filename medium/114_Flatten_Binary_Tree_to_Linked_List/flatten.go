@@ -1,69 +1,7 @@
-package utils
+package main
 
-import (
-	"fmt"
-	"math/rand"
-	"sort"
-	"strconv"
-	"time"
-)
-
-func MakeRandInt() int {
-	maxNum := 40
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	return r.Int() % maxNum
-}
-
-func MakeRandArray() []int {
-	maxLen, maxElement := 10, 20
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	len := r.Int() % maxLen
-	a := make([]int, len)
-	for i := 0; i < len; i++ {
-		a[i] = r.Int() % maxElement
-	}
-	return a
-}
-
-func MakeRandSortedArray() []int {
-	a := MakeRandArray()
-	sort.Ints(a)
-	return a
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func numArrayToList(nums []int) *ListNode {
-	var l, prev *ListNode
-	for _, n := range nums {
-		node := &ListNode{Val: n}
-		if prev == nil {
-			l = node
-		} else {
-			prev.Next = node
-		}
-		prev = node
-	}
-	return l
-}
-
-func dumpList(head *ListNode) {
-	if head == nil {
-		fmt.Println("Nil")
-		return
-	}
-	for p := head; p != nil; p = p.Next {
-		if p == head {
-			fmt.Printf("%d", p.Val)
-		} else {
-			fmt.Printf(" -> %d", p.Val)
-		}
-	}
-	fmt.Println()
-}
+import "fmt"
+import "strconv"
 
 type TreeNode struct {
 	Val   int
@@ -71,10 +9,39 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func makeTree(s string) *TreeNode {
-	s = strings.Replace(s, " ", "", -1)
-	vals := strings.Split(s, ",")
-	fmt.Println(vals)
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	var node, prev *TreeNode
+	stack := []*TreeNode{root}
+	for len(stack) > 0 {
+		top := len(stack) - 1
+		node, stack = stack[top], stack[:top]
+		if node.Right != nil {
+			stack = append(stack, node.Right)
+		}
+		if node.Left != nil {
+			stack = append(stack, node.Left)
+		}
+		if prev != nil {
+			prev.Right = node
+		}
+		node.Left = nil
+		node.Right = nil
+		prev = node
+	}
+}
+
+func makeTree(vals []string) *TreeNode {
 	makeNode := func(val string) *TreeNode {
 		if val == "#" {
 			return nil
@@ -149,4 +116,15 @@ func dumpTree(root *TreeNode) {
 		nodes = nodes[cnt:]
 	}
 	fmt.Println()
+}
+
+func testFlatten(vals []string) {
+	root := makeTree(vals)
+	flatten(root)
+	fmt.Printf("%q, get: ", vals)
+	dumpTree(root)
+}
+
+func main() {
+	testFlatten([]string{"1", "2", "5", "3", "4", "#", "6"})
 }

@@ -15,3 +15,5 @@
 093_Restore_IP_Addresses // various corner cases
 098_Validate_Binary_Search_Tree // what's a BST
 112_Path_Sum // think about all cases, 4 times to get bug free
+166_Fraction_to_Recurring_Decimal // good training on thinking about all cases
+209_Minimum_Size_Subarray_Sum // shifting moving window
