@@ -12,7 +12,7 @@ import requests
 import collections
 
 CACHE_FPATH = "/tmp/803684751aa4b9dbd9c8853a6d683496"
-STALE_AFTER = datetime.timedelta(365)
+STALE_AFTER = datetime.timedelta(7)
 
 class PrettyTable(object):
     def __init__(self, header, lines):
