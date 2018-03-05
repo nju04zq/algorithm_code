@@ -74,7 +74,6 @@ type TreeNode struct {
 func makeTree(s string) *TreeNode {
 	s = strings.Replace(s, " ", "", -1)
 	vals := strings.Split(s, ",")
-	fmt.Println(vals)
 	makeNode := func(val string) *TreeNode {
 		if val == "#" {
 			return nil
