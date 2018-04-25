@@ -6,6 +6,9 @@ class Solution(object):
         :type wordList: Set[str]
         :rtype: int
         """
+        words = set(words)
+        if t not in words:
+            return 0
         alphabet = [chr(i) for i in xrange(ord("a"), ord("z")+1)]
         visited, found, level = set(), False, 1
         cur_level, next_level = {s,}, set()
@@ -18,9 +21,8 @@ class Solution(object):
                         candidate = word[:i] + x + word[i+1:]
                         if candidate == t:
                             found = True
-                        if candidate not in words or candidate in visited:
-                            continue
-                        next_level.add(candidate)
+                        if candidate in words and candidate not in visited:
+                            next_level.add(candidate)
             cur_level, next_level = next_level, set()
             level += 1
 

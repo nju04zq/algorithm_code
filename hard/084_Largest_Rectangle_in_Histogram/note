@@ -1,0 +1,6 @@
+#1. the one with the min height is the most special
+#2. for each bar, if it's included in a rectangle,
+then for this rectangle,
+the start bar is the first one smaller than target bar from target bar to the left end,
+the end bar is the first one smaller than target bar from target bar to the right end.
+#3. if use stack, store the left bars smaller than current one in stack, and check the right edge for each iteration.

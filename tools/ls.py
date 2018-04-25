@@ -195,7 +195,7 @@ def get_item_raw_deep(session, headers, query, title):
     url = d("aHR0cHM6Ly9sZWV0Y29kZS5jb20vZ3JhcGhxbA==")
     r = session.post(url, headers=headers, data=json.dumps(query))
     data = json.loads(r.text)
-    val = data["data"]["question"]["likesDislikes"]
+    val = data["data"]["question"]
     return int(val["likes"]), int(val["dislikes"])
 
 def get_items_raw_deep(items):
@@ -214,11 +214,16 @@ def get_items_raw_deep(items):
         "user-agent":"Mozilla/5.0",
         "x-csrftoken":token
     }
-    q = "{\"query\":\"query getLikesAndFavorites($titleSlug: String!) "\
-        "{\\n  question(titleSlug: $titleSlug) {\\n    likesDislikes "\
-        "{\\n      likes\\n      dislikes\\n    }\\n    isLiked\\n  }\\n  "\
-        "favoritesLists\\n}\\n\",\"variables\":{\"titleSlug\":\"\"},"\
-        "\"operationName\":\"getLikesAndFavorites\"}"
+    q='{"operationName":"getLikesAndFavorites","variables":{"titleSlug":"title"},'\
+      '"query":"query getLikesAndFavorites($titleSlug: String!) '\
+      '{\\n  question(titleSlug: $titleSlug) '\
+      '{\\n    likes\\n    dislikes\\n    isLiked\\n  }\\n  '\
+      'favoritesLists\\n}\\n"}'
+    #q = "{\"query\":\"query getLikesAndFavorites($titleSlug: String!) "\
+            #    "{\\n  question(titleSlug: $titleSlug) {\\n    likesDislikes "\
+            #"{\\n      likes\\n      dislikes\\n    }\\n    isLiked\\n  }\\n  "\
+            #"favoritesLists\\n}\\n\",\"variables\":{\"titleSlug\":\"\"},"\
+            #"\"operationName\":\"getLikesAndFavorites\"}"
     query = json.loads(q)
     i = 0
     progress = OnelineProgress()
